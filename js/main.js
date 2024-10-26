@@ -1,9 +1,6 @@
-// Количество сгенерированных объектов
-const SIMILAR_USER_COUNT = 25;
-
 // Основные магические числа
-const PHOTO_MIN = 1;
-const PHOTO_MAX = 25;
+const PHOTOS_MIN = 1;
+const PHOTOS_MAX = 25;
 const LIKES_MIN = 15;
 const LIKES_MAX = 200;
 const COMMENTS_MIN = 0;
@@ -32,43 +29,53 @@ const MESSAGES = [
 ];
 
 // Возможные имена для комментаторов
-const NAMES = [
-  'Артём',
-  'Ольга',
-  'Иван',
-  'Мария',
-  'Дмитрий',
-  'Анна',
-  'Елена',
-  'Сергей',
-  'Настя',
-  'Максим',
-  'Татьяна',
-  'Ирина'
-];
+const NAMES = ['Артём', 'Ольга', 'Иван', 'Мария', 'Дмитрий', 'Анна', 'Елена', 'Сергей', 'Настя', 'Максим', 'Татьяна', 'Ирина'];
 
-// Метод по выбору случайного числа
-let GetRandomElementArray = getRandomInteger(0, DESCRIPTIONS.length - 1);
-
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
+// создание уникального идентификатора ID, искользуем корирование, замыкаемся на счетчики и вызываем эту функцию
+const getSequentNumber = () => {
+  let lastNumber = 0;
+  return function () {
+    lastNumber++;
+    return lastNumber;
+  };
 };
 
-const createDataPhoto = () => ({
-  id: getRandomInteger(1, SIMILAR_USER_COUNT),
-  url: String('photos/' + getRandomInteger(1, SIMILAR_USER_COUNT) + '.jpg'),
-  description: DESCRIPTIONS[GetRandomElementArray],
-  comments: {
-    commentId: getRandomInteger(1, SIMILAR_USER_COUNT), // ? повторить значение id
-    avatar: String('img/avatar-' + getRandomInteger(1, 6) + '.svg'),
-    message: MESSAGES[GetRandomElementArray], // ? случайно выбрать одно-два сообщения
-    name: NAMES[getRandomInteger(0, NAMES.length - 1)],
-  }
+// фукция генерации случайного числа
+const getRandomNumber = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+// фукция генерации случайного элемента
+const getRandomElement = (elements) =>
+  elements[getRandomNumber(elements.length - 1, 0)];
+
+const getPhotoId = getSequentNumber();
+const getCommentId = getSequentNumber();
+
+const createComment = () => ({
+  id: getCommentId(),
+  avatar: `img/avatar-${getRandomNumber(AVATAR_MIN, AVATAR_MAX)}.svg`,
+  message: getRandomElement(MESSAGES), // случайно выбрать одно-два сообщения
+  name: getRandomElement(NAMES),
 });
 
-const similarUserObject = Array.from({ length: SIMILAR_USER_COUNT }, createDataPhoto);
+//функция, которая возвращает массив комментариев
+const createComments = () => {
+  const commentsAmount = getRandomNumber(COMMENTS_MIN, COMMENTS_MAX);
+  return Array.from({ length: commentsAmount }, createComment);
+};
 
-similarUserObject();
+const createPhoto = () => ({
+  id: getPhotoId(),
+  url: `photos/${getRandomNumber(PHOTOS_MIN, PHOTOS_MAX)}.jpg`,
+  description: getRandomElement(DESCRIPTIONS),
+  likes: getRandomNumber(LIKES_MIN, LIKES_MAX),
+  comments: createComments(),
+});
+
+const createDataPhoto = (amount) =>
+  Array.from({ length: amount }, createPhoto);
+
+createDataPhoto(PHOTOS_MAX);
