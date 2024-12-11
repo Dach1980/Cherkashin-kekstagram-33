@@ -1,6 +1,6 @@
-import { isEscape } from './util';
-import { COMMENTS_MIN, COMMENTS_VISIBLE } from './constants';
-import {socialComments, renderComments} from './render-comments';
+import { isEscape } from './util.js';
+import { COMMENTS_MIN, COMMENTS_VISIBLE } from './constants.js';
+import { socialComments, renderComments } from './render-comments.js';
 
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');

@@ -1,4 +1,4 @@
-import {SCALE_MIN, SCALE_STEP, SCALE_MAX} from './constants';
+import { SCALE_MIN, SCALE_STEP, SCALE_MAX } from './constants.js';
 
 const scaleControl = document.querySelector('.img-upload__scale');
 const scaleButtonSmaller = scaleControl.querySelector('.scale__control--smaller');
@@ -6,10 +6,10 @@ const scaleButtonBigger = scaleControl.querySelector('.scale__control--bigger');
 const scaleControlValue = scaleControl.querySelector('.scale__control--value');
 const imageUploadPreview = document.querySelector('.img-upload__preview img');
 
-function changeImageScale (scaleValue) {
+function changeImageScale(scaleValue) {
   scaleButtonSmaller.addEventListener('click', () => {
     scaleValue -= SCALE_STEP;
-    if(scaleValue < SCALE_MIN) {
+    if (scaleValue < SCALE_MIN) {
       scaleValue = SCALE_MIN;
     }
 
@@ -19,7 +19,7 @@ function changeImageScale (scaleValue) {
 
   scaleButtonBigger.addEventListener('click', () => {
     scaleValue += SCALE_STEP;
-    if(scaleValue > SCALE_MAX) {
+    if (scaleValue > SCALE_MAX) {
       scaleValue = SCALE_MAX;
     }
 
@@ -28,4 +28,4 @@ function changeImageScale (scaleValue) {
   });
 }
 
-export {changeImageScale, imageUploadPreview};
+export { changeImageScale, imageUploadPreview };

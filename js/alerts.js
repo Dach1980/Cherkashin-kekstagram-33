@@ -1,5 +1,5 @@
-import { isEscape } from './util';
-import { ALERT_SHOW_TIME } from './constants';
+import { isEscape } from './util.js';
+import { ALERT_SHOW_TIME } from './constants.js';
 
 
 const successSendMessageTemp = document.querySelector('#success');

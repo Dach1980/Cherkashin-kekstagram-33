@@ -1,4 +1,4 @@
-import { DEBOUNCE_IMAGES_DELAY } from './constants';
+import { DEBOUNCE_IMAGES_DELAY } from './constants.js';
 
 // создание уникального идентификатора ID, искользуем корирование, замыкаемся на счетчики и вызываем эту функцию
 const getSequentNumber = () => {

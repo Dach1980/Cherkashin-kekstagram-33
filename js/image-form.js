@@ -1,4 +1,4 @@
-import { isEscape, openSomeModal, closeSomeModal } from './util';
+import { isEscape, openSomeModal, closeSomeModal } from './util.js';
 import { textValidator, configureFormValidation } from './form-validation.js';
 import { changeImageScale, imageUploadPreview } from './image-scale.js';
 import { SCALE_DEFAULT, SCALE_MAX, FILE_TYPES } from './constants.js';
